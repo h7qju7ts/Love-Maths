@@ -30,18 +30,21 @@ function runGame(gameType) {
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
-
-    if (gameType === "addition") {
+           if (gameType === "addition") {
         displayAdditionQuestion(num1, num2);
     } else if (gameType === "multiply") {
         displayMultiplyQuestion(num1, num2);
-    } 
-    else {
+    } else if (gameType === "substract") {
+        displaySubtractQuestion(num1, num2);
+    } else {
         alert(`Unknown game type: ${gameType}`);
-        throw `Unknown game type: ${gameType}. Aborting!`;
+        throw `Unknown game type: ${gameType}. Aborting!`;   
     }
+ }   
 
-}
+    
+
+
 
 /**
  * Checks the answer agaist the first element in
@@ -75,13 +78,16 @@ function calculateCorrectAnswer() {
     let operand2 = parseInt(document.getElementById('operand2').innerText);
     let operator = document.getElementById("operator").innerText;
 
-    if (operator === "+") {
+           if (operator === "+") {
         return [operand1 + operand2, "addition"];
     } else if (operator === "x") {
         return [operand1 * operand2, "multiply"];
+    } else if (operator === "-") {
+        return [operand1 - operand2, "substract"];
     } else {
         alert(`Unimplemented operator ${operator}`);
-        throw `Unimplemented operator ${operator}. Aborting!`;
+        throw `Unimplemented operator ${operator}. Aborting!`;    
+    
     }
     
 
@@ -110,8 +116,15 @@ function displayAdditionQuestion(operand1, operand2) {
     
 }
 
-function displaySubtractQuestion() {
-    
+function displaySubtractQuestion(operand1, operand2) {
+    /**
+     * using ternary operator to check if operand1 is greater than operand2
+     * if true, display operand1, else display operand2
+     */
+    document.getElementById("operand1").textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById("operand2").textContent = operand1 > operand2 ? operand2 : operand1;
+    document.getElementById('operator').textContent = "-";
+   
 }
 
 function displayMultiplyQuestion(operand1, operand2) {
